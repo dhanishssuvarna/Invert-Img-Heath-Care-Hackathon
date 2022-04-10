@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Invert Image</title>
+	<style>
+		.choosecontainer {
+			background: #04AA6D;
+			width: 160px;
+			height: 50px;
+			border: 3px solid white;
+			padding-bottom: 1px;
+			margin-bottom: 45px;
+			color: white;
+			font-weight: 800;
+			border-radius: 15px;
+
+		}
+
+		.imgcontainer {
+			display: flex;
+			justify-content: space-evenly;
+		}
+
+		#sliderAmount,
+		h3 {
+			color: #04AA6D;
+		}
+
+		.slidecontainer {
+			width: 100%;
+			margin-top: 45px;
+		}
+
+		.slider {
+			-webkit-appearance: none;
+			width: 70%;
+			height: 25px;
+			background: #d3d3d3;
+			outline: none;
+			opacity: 0.7;
+			-webkit-transition: .2s;
+			transition: opacity .2s;
+		}
+
+		.slider:hover {
+			opacity: 1;
+		}
+
+		.slider::-webkit-slider-thumb {
+			-webkit-appearance: none;
+			appearance: none;
+			width: 25px;
+			height: 25px;
+			background: #04AA6D;
+			cursor: pointer;
+		}
+
+		.slider::-moz-range-thumb {
+			width: 25px;
+			height: 25px;
+			background: #04AA6D;
+			cursor: pointer;
+		}
+	</style>
+</head>
+
+<body>
+	<center>
+		<div class="choosecontainer">
+			<p><input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)" style="display: none;">
+			</p>
+			<p><label for="file" style="cursor: pointer;">Upload Image</label></p>
+		</div>
+
+		<div class="imgcontainer">
+			<div style="width: 40%">
+				<h3>Input Image</h3>
+				<img id="input" width="100%" style="object-fit: scale-down;" />
+			</div>
+			<div style="width: 40%">
+				<h3>Output Image</h3>
+				<img id="output" width="100%" style="object-fit: scale-down;" />
+			</div>
+		</div>
+
+		<div class="slidecontainer">
+			<input type="range" min="0" max="100" value="0" class="slider" onchange="updateSlider(this.value)">
+			<h1 id="sliderAmount"></h1>
+		</div>
+	</center>
+
+	<script>
+		var loadFile = function (event) {
+			var image1 = document.getElementById('input');
+			var image2 = document.getElementById('output');
+			image1.src = URL.createObjectURL(event.target.files[0]);
+			image2.src = URL.createObjectURL(event.target.files[0]);
+		};
+
+		var updateSlider = (slideAmount) => {
+			var sliderDiv = document.getElementById("sliderAmount");
+			var img = document.getElementById('output');
+			sliderDiv.innerHTML = `${slideAmount}%`;
+			img.style.setProperty('filter', `invert(${slideAmount}%)`);
+		}
+	</script>
+</body>
+
+</html>
